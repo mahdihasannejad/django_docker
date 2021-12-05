@@ -1,1 +1,17 @@
 version: '3'
+services:
+  cloud:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - .:/django_docker
+    restart: always
+    ports:
+      - "8000:8000"
+    networks:
+      - cloud_network
+
+networks:
+  cloud_network:
+    external: true
