@@ -1,0 +1,641 @@
+{
+	"info": {
+		"_postman_id": "b46dfb0f-a713-4885-a08c-39aeda7ed61f",
+		"name": "cloud",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "username",
+							"value": "amirreza",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "12344321ab",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:8000/rest-auth/login/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"rest-auth",
+						"login",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "registration",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "localhost:8000/rest-auth/registration/?username&email&password1&password2",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"rest-auth",
+						"registration",
+						""
+					],
+					"query": [
+						{
+							"key": "username",
+							"value": null
+						},
+						{
+							"key": "email",
+							"value": null
+						},
+						{
+							"key": "password1",
+							"value": null
+						},
+						{
+							"key": "password2",
+							"value": null
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "game",
+			"request": {
+				"auth": {
+					"type": "oauth2",
+					"oauth2": [
+						{
+							"key": "headerPrefix",
+							"value": "Token",
+							"type": "string"
+						},
+						{
+							"key": "addTokenTo",
+							"value": "header",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": []
+				},
+				"url": {
+					"raw": "localhost:8000/game/",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"game",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "N-platform",
+			"request": {
+				"auth": {
+					"type": "oauth2",
+					"oauth2": [
+						{
+							"key": "addTokenTo",
+							"value": "header",
+							"type": "string"
+						},
+						{
+							"key": "headerPrefix",
+							"value": "Token",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "N",
+							"value": "5",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:8000/game/N-platform",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"game",
+						"N-platform"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "N-year",
+			"request": {
+				"auth": {
+					"type": "oauth2",
+					"oauth2": [
+						{
+							"key": "addTokenTo",
+							"value": "header",
+							"type": "string"
+						},
+						{
+							"key": "headerPrefix",
+							"value": "Token",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "N",
+							"value": "5",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "localhost:8000/game/N-year",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"game",
+						"N-year"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "N-genre",
+			"request": {
+				"auth": {
+					"type": "oauth2",
+					"oauth2": [
+						{
+							"key": "addTokenTo",
+							"value": "header",
+							"type": "string"
+						},
+						{
+							"key": "headerPrefix",
+							"value": "Token",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "N",
+							"value": "5",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "localhost:8000/game/N-genre?N=5",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"game",
+						"N-genre"
+					],
+					"query": [
+						{
+							"key": "N",
+							"value": "5"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "rank",
+			"request": {
+				"auth": {
+					"type": "oauth2",
+					"oauth2": [
+						{
+							"key": "addTokenTo",
+							"value": "header",
+							"type": "string"
+						},
+						{
+							"key": "headerPrefix",
+							"value": "Token",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "rank",
+							"value": "94",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "localhost:8000/game/rank",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"game",
+						"rank"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "name",
+			"request": {
+				"auth": {
+					"type": "oauth2",
+					"oauth2": [
+						{
+							"key": "addTokenTo",
+							"value": "header",
+							"type": "string"
+						},
+						{
+							"key": "headerPrefix",
+							"value": "Token",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "name",
+							"value": "Call of Duty: Advanced Warfare",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "localhost:8000/game/name",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"game",
+						"name"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "top-year-platform",
+			"request": {
+				"auth": {
+					"type": "oauth2",
+					"oauth2": [
+						{
+							"key": "addTokenTo",
+							"value": "header",
+							"type": "string"
+						},
+						{
+							"key": "headerPrefix",
+							"value": "Token",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "year",
+							"value": "2006",
+							"type": "text"
+						},
+						{
+							"key": "platform",
+							"value": "ps2",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "localhost:8000/game/top-year-platform",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"game",
+						"top-year-platform"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "eu-na",
+			"request": {
+				"auth": {
+					"type": "oauth2",
+					"oauth2": [
+						{
+							"key": "addTokenTo",
+							"value": "header",
+							"type": "string"
+						},
+						{
+							"key": "headerPrefix",
+							"value": "Token",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": []
+				},
+				"url": {
+					"raw": "localhost:8000/game/eu-na",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"game",
+						"eu-na"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "compare",
+			"request": {
+				"auth": {
+					"type": "oauth2",
+					"oauth2": [
+						{
+							"key": "addTokenTo",
+							"value": "header",
+							"type": "string"
+						},
+						{
+							"key": "headerPrefix",
+							"value": "Token",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "game1",
+							"value": "wii sports",
+							"type": "text"
+						},
+						{
+							"key": "game2",
+							"value": "super mario bros",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "localhost:8000/game/compare",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"game",
+						"compare"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "total",
+			"request": {
+				"auth": {
+					"type": "oauth2",
+					"oauth2": [
+						{
+							"key": "addTokenTo",
+							"value": "header",
+							"type": "string"
+						},
+						{
+							"key": "headerPrefix",
+							"value": "Token",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "year1",
+							"value": "2000",
+							"type": "text"
+						},
+						{
+							"key": "year2",
+							"value": "2010",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "localhost:8000/game/total",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"game",
+						"total"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "two-company",
+			"request": {
+				"auth": {
+					"type": "oauth2",
+					"oauth2": [
+						{
+							"key": "addTokenTo",
+							"value": "header",
+							"type": "string"
+						},
+						{
+							"key": "headerPrefix",
+							"value": "Token",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "year1",
+							"value": "2000",
+							"type": "text"
+						},
+						{
+							"key": "year2",
+							"value": "2010",
+							"type": "text"
+						},
+						{
+							"key": "company1",
+							"value": "nintendo",
+							"type": "text"
+						},
+						{
+							"key": "company2",
+							"value": "ubisoft",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "localhost:8000/game/two-company",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"game",
+						"two-company"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "compare-genre",
+			"request": {
+				"auth": {
+					"type": "oauth2",
+					"oauth2": [
+						{
+							"key": "addTokenTo",
+							"value": "header",
+							"type": "string"
+						},
+						{
+							"key": "headerPrefix",
+							"value": "Token",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "year1",
+							"value": "2000",
+							"type": "text"
+						},
+						{
+							"key": "year2",
+							"value": "2010",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "localhost:8000/game/compare-genre",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"game",
+						"compare-genre"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
