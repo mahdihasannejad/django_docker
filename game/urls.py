@@ -3,13 +3,14 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
+    # path('', views.Index, name='index'),
     path('', views.index, name='index'),
-    path('top-platform', views.topplatform, name='topPlatform'),
-    path('rank', views.ir_rank, name='rank'),
-    path('name', views.ir_name, name='name'),
-    path('top-year', views.topYear, name='topYear'),
-    path('top-category', views.topCategory, name='topCategory'),
-    path('top-year-plarform', views.topYear_platform, name='topYear_platform'),
-    path('top-eu-nam', views.topEU_NAm, name='rank'),
+    path('N-platform', views.topPlatform, name='topPlatform'),
+    path('N-year', views.topYear, name='topYear'),
+    path('N-genre', views.topGenre, name='topGenre'),
+    path('rank', views.rank, name='rank'),
+    path('name', views.name, name='name'),
+    path('top-year-platform', views.topYearPlatform, name='topYearPlatform'),
+    path('eu-na', views.naLessThanEU, name='naLessThanEU'),
 
 ]
