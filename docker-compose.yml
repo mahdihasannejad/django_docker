@@ -7,12 +7,20 @@ services:
     volumes:
       - ./data/db:/var/lib/postgresql/data
 
+  db2:
+    image: postgres
+    environment:
+      POSTGRES_PASSWORD: postgres
+    volumes:
+      - ./data/db2:/var/lib/postgresql/data
+
   cloud:
     build:
       context: .
       dockerfile: Dockerfile
     command: >
       sh -c "python manage.py migrate &&
+             python manage.py migrate --database=game_db &&
              python manage.py runserver 0.0.0.0:8000"
     volumes:
       - .:/docker_django
@@ -23,8 +31,13 @@ services:
       - POSTGRES_NAME=postgres
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
+
+      - POSTGRES_NAME2=postgres
+      - POSTGRES_USER2=postgres
+      - POSTGRES_PASSWORD2=postgres
     depends_on:
       - db
+      - db2
 #     networks:
 #       - cloud_network
 

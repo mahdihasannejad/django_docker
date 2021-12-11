@@ -32,7 +32,7 @@ def index(request):
                       Other_Sales=float(rows[i][9]), Global_Sales=float(rows[i][10]))
             b.save()
         return Response({"status": "success"}, status=status.HTTP_200_OK)
-    Games.objects.all().delete()
+    Games.objects.using('game_db').all().delete()
     return Response({"status": "method isn't post"}, status=status.HTTP_405_METHOD_NOT_ALLOWED)
 
 
@@ -41,7 +41,7 @@ def rank(request):
     if request.method == 'POST':
         try:
             game_rank = request.data['rank']
-            game = Games.objects.filter(Rank=game_rank)
+            game = Games.objects.using('game_db').filter(Rank=game_rank)
             data = [{
                 "Rank": game[0].Rank,
                 "Name": game[0].Name,
@@ -65,7 +65,7 @@ def name(request):
     if request.method == 'POST':
         try:
             game_name = request.data['name']
-            games = Games.objects.filter(Name__icontains=game_name).values_list(
+            games = Games.objects.using('game_db').filter(Name__icontains=game_name).values_list(
                 "Rank", "Name", "Platform", "Year", "Genre", "Publisher", "NA_Sales", "EU_Sales", "JP_Sales", "Other_Sales", "Global_Sales"
             ).distinct()
             data = []
@@ -94,12 +94,12 @@ def topPlatform(request):
     if request.method == 'POST':
         try:
             topN = int(request.data['N'])
-            platforms = Games.objects.values_list('Platform').distinct()
+            platforms = Games.objects.using('game_db').values_list('Platform').distinct()
             set_platform = set(platform[0] for platform in platforms)
             a = {}
             for platform in set_platform:
                 a[platform] = (
-                    Games.objects.filter(Platform=platform).order_by('-Global_Sales').values_list('Name').distinct()[
+                    Games.objects.using('game_db').filter(Platform=platform).order_by('-Global_Sales').values_list('Name').distinct()[
                     :topN])
             return Response(a, status=status.HTTP_200_OK)
         except:
@@ -112,13 +112,13 @@ def topYear(request):
     if request.method == 'POST':
         try:
             topN = int(request.data['N'])
-            years = Games.objects.values_list('Year').distinct()
+            years = Games.objects.using('game_db').values_list('Year').distinct()
             set_year = set(year[0] for year in years)
             a = {}
             for year in set_year:
                 if year != 0:
                     a[year] = (
-                        Games.objects.filter(Year=year).order_by('-Global_Sales').values_list('Name').distinct()[:topN])
+                        Games.objects.using('game_db').filter(Year=year).order_by('-Global_Sales').values_list('Name').distinct()[:topN])
             return Response(a, status=status.HTTP_200_OK)
         except:
             return Response({"status": "failed"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
@@ -130,12 +130,12 @@ def topGenre(request):
     if request.method == 'POST':
         try:
             topN = int(request.data['N'])
-            genres = Games.objects.values_list('Genre').distinct()
+            genres = Games.objects.using('game_db').values_list('Genre').distinct()
             a = {}
             set_genre = set(genre[0] for genre in genres)
             for genre in set_genre:
                 a[genre] = (
-                    Games.objects.filter(Genre=genre).order_by('-Global_Sales').values_list('Name').distinct()[:topN])
+                    Games.objects.using('game_db').filter(Genre=genre).order_by('-Global_Sales').values_list('Name').distinct()[:topN])
             return Response(a, status=status.HTTP_200_OK)
         except:
             return Response({"status": "failed"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
@@ -148,7 +148,7 @@ def topYearPlatform(request):
         try:
             year = int(request.data['year'])
             platform = request.data['platform']
-            data = Games.objects.filter(
+            data = Games.objects.using('game_db').filter(
                 Year=year, Platform__icontains=platform).order_by('-Global_Sales').values_list('Name', 'Year',
                                                                                                'Platform').distinct()[
                    :5]
@@ -162,7 +162,7 @@ def topYearPlatform(request):
 def naLessThanEU(request):
     if request.method == 'POST':
         try:
-            data1 = Games.objects.order_by('-Global_Sales').values_list('Name', 'EU_Sales', 'NA_Sales', 'Platform').distinct()
+            data1 = Games.objects.using('game_db').order_by('-Global_Sales').values_list('Name', 'EU_Sales', 'NA_Sales', 'Platform').distinct()
             data = []
             for i in range(len(data1)):
                 if data1[i][1] > data1[i][2]:
@@ -179,9 +179,9 @@ def compareTwo(request):
         try:
             game1 = request.data['game1']
             game2 = request.data['game2']
-            data1 = Games.objects.filter(Name__icontains=game1).values_list(
+            data1 = Games.objects.using('game_db').filter(Name__icontains=game1).values_list(
                 'Name', 'NA_Sales', 'EU_Sales', 'JP_Sales', 'Other_Sales', 'Global_Sales').distinct()[:1]
-            data2 = Games.objects.filter(Name__icontains=game2).values_list(
+            data2 = Games.objects.using('game_db').filter(Name__icontains=game2).values_list(
                 'Name', 'NA_Sales', 'EU_Sales', 'JP_Sales', 'Other_Sales', 'Global_Sales').distinct()[:1]
 
             data = [{
@@ -213,12 +213,12 @@ def total(request):
         try:
             year1 = int(request.data['year1'])
             year2 = int(request.data['year2'])
-            years = Games.objects.filter(Year__gte=year1, Year__lte=year2).values_list('Year').distinct()
+            years = Games.objects.using('game_db').filter(Year__gte=year1, Year__lte=year2).values_list('Year').distinct()
             year = set(y[0] for y in years)
             total = {}
             for y in year:
                     temp = 0;
-                    data = Games.objects.filter(Year=y).values_list('Name','Global_Sales', 'Platform').distinct()
+                    data = Games.objects.using('game_db').filter(Year=y).values_list('Name','Global_Sales', 'Platform').distinct()
                     for d in data:
                         temp += d[1]
                     total[y] = temp
@@ -237,14 +237,14 @@ def twoCompany(request):
             year2 = int(request.data['year2'])
             company1 = request.data['company1']
             company2 = request.data['company2']
-            years = Games.objects.filter(Year__gte=year1, Year__lte=year2).values_list('Year').distinct()
+            years = Games.objects.using('game_db').filter(Year__gte=year1, Year__lte=year2).values_list('Year').distinct()
             year = set(y[0] for y in years)
             total = {}
             for y in year:
                     temp1 = 0;
                     temp2 = 0;
-                    data1 = Games.objects.filter(Year=y, Publisher__icontains=company1).values_list('Name','Global_Sales', 'Platform', 'Publisher').distinct()
-                    data2 = Games.objects.filter(Year=y, Publisher__icontains=company2).values_list('Name', 'Global_Sales', 'Platform', 'Publisher').distinct()
+                    data1 = Games.objects.using('game_db').filter(Year=y, Publisher__icontains=company1).values_list('Name','Global_Sales', 'Platform', 'Publisher').distinct()
+                    data2 = Games.objects.using('game_db').filter(Year=y, Publisher__icontains=company2).values_list('Name', 'Global_Sales', 'Platform', 'Publisher').distinct()
                     for d1 in data1:
                         temp1 += d1[1]
                     for d2 in data2:
@@ -270,15 +270,15 @@ def compareGenre(request):
         try:
             year1 = int(request.data['year1'])
             year2 = int(request.data['year2'])
-            years = Games.objects.filter(Year__gte=year1, Year__lte=year2).values_list('Year').distinct()
-            genres = Games.objects.values_list('Genre').distinct()
+            years = Games.objects.using('game_db').filter(Year__gte=year1, Year__lte=year2).values_list('Year').distinct()
+            genres = Games.objects.using('game_db').values_list('Genre').distinct()
             year = set(y[0] for y in years)
             genre = set(g[0] for g in genres)
             total = {}
             for g in genre:
                 for y in year:
                         temp = 0;
-                        data = Games.objects.filter(Year=y, Genre=g).values_list('Name', 'Global_Sales', 'Platform').distinct()
+                        data = Games.objects.using('game_db').filter(Year=y, Genre=g).values_list('Name', 'Global_Sales', 'Platform').distinct()
                         for d in data:
                             temp += d[1]
 

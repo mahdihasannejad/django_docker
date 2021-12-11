@@ -87,7 +87,11 @@ WSGI_APPLICATION = 'cloud.wsgi.application'
 # DATABASES = {
 #     'default': {
 #         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db.sqlite3',
+#         'NAME': BASE_DIR / 'user.sqlite3',
+#     },
+#     'game_db': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'game.sqlite3',
 #     }
 # }
 DATABASES = {
@@ -98,7 +102,16 @@ DATABASES = {
         'PASSWORD': os.environ.get('POSTGRES_PASSWORD'),
         'HOST': 'db',
         'PORT': '5432',
+    },
+    'game_db': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': os.environ.get('POSTGRES_NAME2'),
+        'USER': os.environ.get('POSTGRES_USER2'),
+        'PASSWORD': os.environ.get('POSTGRES_PASSWORD2'),
+        'HOST': 'db2',
+        'PORT': '5432',
     }
+
 }
 
 # Password validation
@@ -157,3 +170,5 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.TokenAuthentication'
     ]
 }
+
+DATABASE_ROUTERS = ['routers.db_routers.Game']
