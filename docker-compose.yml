@@ -1,18 +1,33 @@
 version: '3'
 services:
+  db:
+    image: postgres
+    environment:
+      POSTGRES_PASSWORD: postgres
+    volumes:
+      - ./data/db:/var/lib/postgresql/data
+
   cloud:
     build:
       context: .
       dockerfile: Dockerfile
-    command: python manage.py runserver 0.0.0.0:8000
+    command: >
+      sh -c "python manage.py migrate &&
+             python manage.py runserver 0.0.0.0:8000"
     volumes:
       - .:/docker_django
     restart: always
     ports:
       - "8000:8000"
-    networks:
-      - cloud_network
+    environment:
+      - POSTGRES_NAME=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    depends_on:
+      - db
+#     networks:
+#       - cloud_network
 
-networks:
-  cloud_network:
-    external: true
+# networks:
+#   cloud_network:
+#     external: true

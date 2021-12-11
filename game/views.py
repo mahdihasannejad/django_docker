@@ -13,25 +13,25 @@ from django.http import JsonResponse
 @api_view(['GET', 'POST'])
 def index(request):
     if request.method == 'POST':
+        rows = []
         try:
             file = open("vgsales.csv")
             csvreader = csv.reader(file)
-            rows = []
             for row in csvreader:
                 if row[3] == 'N/A':
                     row[3] = 0
                 rows.append(row)
-
-            for i in range(1, len(rows)):
-                b = Games(Rank=float(rows[i][0]), Name=rows[i][1], Platform=rows[i][2], Year=float(rows[i][3]),
-                          Genre=rows[i][4],
-                          Publisher=rows[i][5], NA_Sales=float(rows[i][6]), EU_Sales=float(rows[i][7]),
-                          JP_Sales=float(rows[i][8]),
-                          Other_Sales=float(rows[i][9]), Global_Sales=float(rows[i][10]))
-                b.save()
-            return Response({"status": "success"}, status=status.HTTP_200_OK)
         except:
             return Response({"status": "failed to add csv file"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+        for i in range(1, len(rows)):
+            b = Games(Rank=float(rows[i][0]), Name=rows[i][1], Platform=rows[i][2], Year=float(rows[i][3]),
+                      Genre=rows[i][4],
+                      Publisher=rows[i][5], NA_Sales=float(rows[i][6]), EU_Sales=float(rows[i][7]),
+                      JP_Sales=float(rows[i][8]),
+                      Other_Sales=float(rows[i][9]), Global_Sales=float(rows[i][10]))
+            b.save()
+        return Response({"status": "success"}, status=status.HTTP_200_OK)
     Games.objects.all().delete()
     return Response({"status": "method isn't post"}, status=status.HTTP_405_METHOD_NOT_ALLOWED)
 
