@@ -95,20 +95,20 @@ WSGI_APPLICATION = 'cloud.wsgi.application'
 #     }
 # }
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': os.environ.get('POSTGRES_NAME'),
-        'USER': os.environ.get('POSTGRES_USER'),
-        'PASSWORD': os.environ.get('POSTGRES_PASSWORD'),
-        'HOST': 'db',
-        'PORT': '5432',
+    'default':{
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': os.environ.get("MYSQL_DATABASE"),
+        'USER': os.environ.get("MYSQL_USER"),
+        'PASSWORD': os.environ.get("MYSQL_PASSWORD"),
+        'HOST': 'mysql',  # docker-compose service name 'db' resolves to host name 'db'
+        'PORT': '3306'
     },
     'game_db': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': os.environ.get('POSTGRES_NAME2'),
         'USER': os.environ.get('POSTGRES_USER2'),
         'PASSWORD': os.environ.get('POSTGRES_PASSWORD2'),
-        'HOST': 'db2',
+        'HOST': 'postgres',
         'PORT': '5432',
     }
 

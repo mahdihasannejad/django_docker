@@ -1,29 +1,41 @@
 version: '3'
 services:
-  db:
+  # db:
+  #   image: postgres
+  #   environment:
+  #     POSTGRES_PASSWORD: postgres
+  #   volumes:
+  #     - ./data/db:/var/lib/postgresql/data
+  #   ports:
+  #     - 5433:5432
+  mysql:
+    image: mysql:5.7
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: cloud
+    volumes:
+      - mysql_volume:/var/lib/mysql
+
+  postgres:
     image: postgres
     environment:
       POSTGRES_PASSWORD: postgres
     volumes:
-      - ./data/db:/var/lib/postgresql/data
-
-  db2:
-    image: postgres
-    environment:
-      POSTGRES_PASSWORD: postgres
-    volumes:
-      - ./data/db2:/var/lib/postgresql/data
-
+      - postgre_volume:/var/lib/postgresql/data
+    ports:
+      - 5432:5432
   cloud:
     build:
       context: .
       dockerfile: Dockerfile
     command: >
-      sh -c "python manage.py migrate &&
+      sh -c "python manage.py migrate && 
              python manage.py migrate --database=game_db &&
              python manage.py runserver 0.0.0.0:8000"
     volumes:
-      - .:/docker_django
+      - production_static_data:/vol/web
     restart: always
     ports:
       - "8000:8000"
@@ -32,12 +44,22 @@ services:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
 
+      - MYSQL_DATABASE=cloud
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_USER=root
+      - MYSQL_PASSWORD=root
+
       - POSTGRES_NAME2=postgres
       - POSTGRES_USER2=postgres
       - POSTGRES_PASSWORD2=postgres
     depends_on:
-      - db
-      - db2
+      - mysql
+      - postgres
+
+volumes:
+  production_static_data:
+  mysql_volume:
+  postgre_volume:
 #     networks:
 #       - cloud_network
 
