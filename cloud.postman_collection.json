@@ -46,8 +46,33 @@
 			"request": {
 				"method": "POST",
 				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "username",
+							"value": "amirreza",
+							"type": "text"
+						},
+						{
+							"key": "email",
+							"value": "amirreza@gmail.com",
+							"type": "text"
+						},
+						{
+							"key": "password1",
+							"value": "12344321ab",
+							"type": "text"
+						},
+						{
+							"key": "password2",
+							"value": "12344321ab",
+							"type": "text"
+						}
+					]
+				},
 				"url": {
-					"raw": "localhost:8000/rest-auth/registration/?username&email&password1&password2",
+					"raw": "localhost:8000/rest-auth/registration/",
 					"host": [
 						"localhost"
 					],
@@ -56,24 +81,6 @@
 						"rest-auth",
 						"registration",
 						""
-					],
-					"query": [
-						{
-							"key": "username",
-							"value": null
-						},
-						{
-							"key": "email",
-							"value": null
-						},
-						{
-							"key": "password1",
-							"value": null
-						},
-						{
-							"key": "password2",
-							"value": null
-						}
 					]
 				}
 			},
