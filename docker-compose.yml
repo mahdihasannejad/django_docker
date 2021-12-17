@@ -1,66 +1,58 @@
 version: '3'
 services:
-  # db:
-  #   image: postgres
-  #   environment:
-  #     POSTGRES_PASSWORD: postgres
-  #   volumes:
-  #     - ./data/db:/var/lib/postgresql/data
-  #   ports:
-  #     - 5433:5432
-  mysql:
-    image: mysql:5.7
-    command: --default-authentication-plugin=mysql_native_password
-    restart: always
-    environment:
-      MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: cloud
-    volumes:
-      - mysql_volume:/var/lib/mysql
+
+#  mysql:
+#    image: mysql:5.7
+#    command: --default-authentication-plugin=mysql_native_password
+#    restart: always
+#    environment:
+#      MYSQL_ROOT_PASSWORD: root
+#      MYSQL_DATABASE: cloud
+#    volumes:
+#      - mysql_volume:/var/lib/mysql
 
   postgres:
     image: postgres
+    container_name: postgres
     environment:
       POSTGRES_PASSWORD: postgres
     volumes:
-      - postgre_volume:/var/lib/postgresql/data
+      - postgres_volume:/var/lib/postgresql/data
+    restart: always
     ports:
-      - 5432:5432
+      - "5432:5432"
+    networks:
+      - cloud
 
   cloud:
     build:
       context: .
       dockerfile: Dockerfile
     command: bash run.sh
+    container_name: cloud
     volumes:
       - .:/docker_django
     restart: always
     ports:
       - "8000:8000"
     environment:
-#      - POSTGRES_NAME=postgres
-#      - POSTGRES_USER=postgres
-#      - POSTGRES_PASSWORD=postgres
-
-      - MYSQL_DATABASE=cloud
-      - MYSQL_ROOT_PASSWORD=root
-      - MYSQL_USER=root
-      - MYSQL_PASSWORD=root
+#      - MYSQL_DATABASE=cloud
+#      - MYSQL_ROOT_PASSWORD=root
+#      - MYSQL_USER=root
+#      - MYSQL_PASSWORD=root
 
       - POSTGRES_NAME2=postgres
       - POSTGRES_USER2=postgres
       - POSTGRES_PASSWORD2=postgres
+    networks:
+      - cloud
     depends_on:
-      - mysql
+#      - mysql
       - postgres
 
 volumes:
-  production_static_data:
-  mysql_volume:
-  postgre_volume:
-#     networks:
-#       - cloud_network
+#  mysql_volume:
+  postgres_volume:
 
-# networks:
-#   cloud_network:
-#     external: true
+networks:
+  cloud:
