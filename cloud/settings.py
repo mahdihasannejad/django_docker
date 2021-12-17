@@ -100,9 +100,17 @@ DATABASES = {
     #     'HOST': 'mysql',  # docker-compose service name 'db' resolves to host name 'db'
     #     'PORT': '3306'
     # },
+    # 'default': {
+    #     'ENGINE': 'django.db.backends.sqlite3',
+    #     'NAME': BASE_DIR / 'db.sqlite3',
+    # },
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': os.environ.get('POSTGRES_NAME1'),
+        'USER': os.environ.get('POSTGRES_USER1'),
+        'PASSWORD': os.environ.get('POSTGRES_PASSWORD1'),
+        'HOST': 'postgresql',
+        'PORT': '5432',
     },
     'game_db': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',

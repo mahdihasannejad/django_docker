@@ -463,22 +463,22 @@
 					"formdata": [
 						{
 							"key": "game1",
-							"value": "wii sports",
+							"value": "zelda",
 							"type": "text"
 						},
 						{
 							"key": "game2",
-							"value": "super mario bros",
+							"value": "mario",
 							"type": "text"
 						}
 					]
 				},
 				"url": {
-					"raw": "localhost:8000/analysis/compare",
+					"raw": "localhost:8001/analysis/compare",
 					"host": [
 						"localhost"
 					],
-					"port": "8000",
+					"port": "8001",
 					"path": [
 						"analysis",
 						"compare"
@@ -523,11 +523,11 @@
 					]
 				},
 				"url": {
-					"raw": "localhost:8000/analysis/total",
+					"raw": "localhost:8001/analysis/total",
 					"host": [
 						"localhost"
 					],
-					"port": "8000",
+					"port": "8001",
 					"path": [
 						"analysis",
 						"total"
@@ -582,11 +582,11 @@
 					]
 				},
 				"url": {
-					"raw": "localhost:8000/analysis/two-company",
+					"raw": "localhost:8001/analysis/two-company",
 					"host": [
 						"localhost"
 					],
-					"port": "8000",
+					"port": "8001",
 					"path": [
 						"analysis",
 						"two-company"
@@ -631,11 +631,11 @@
 					]
 				},
 				"url": {
-					"raw": "localhost:8000/analysis/compare-genre",
+					"raw": "localhost:8001/analysis/compare-genre",
 					"host": [
 						"localhost"
 					],
-					"port": "8000",
+					"port": "8001",
 					"path": [
 						"analysis",
 						"compare-genre"
