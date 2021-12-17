@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'rest_auth.registration',
     'django.contrib.sites',
     'game',
+    'analysis',
 ]
 SITE_ID = 1
 
@@ -103,6 +104,10 @@ DATABASES = {
         'HOST': 'mysql',  # docker-compose service name 'db' resolves to host name 'db'
         'PORT': '3306'
     },
+    # 'default': {
+    #     'ENGINE': 'django.db.backends.sqlite3',
+    #     'NAME': BASE_DIR / 'db.sqlite3',
+    # },
     'game_db': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': os.environ.get('POSTGRES_NAME2'),
